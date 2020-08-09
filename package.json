@@ -30,5 +30,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@aerian/eslint-config-react": "^9.1.0",
+    "eslint": "^7.6.0",
+    "prettier": "^2.0.5"
   }
 }
