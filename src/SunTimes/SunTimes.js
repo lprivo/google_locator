@@ -5,11 +5,11 @@ export const SunTimes = ({ sunrise, sunset }) => {
   return (
     <div>
       <span>
-        {`Sun will rise at ${sunrise}`}
+        {`Time of sunrise: ${sunrise}`}
       </span>
       <br></br>
       <span>
-        {`and it will set at ${sunset}.`}
+        {`Time of sunset: ${sunset}`}
       </span>
     </div>
   );
