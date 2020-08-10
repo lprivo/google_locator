@@ -3,7 +3,7 @@ import "./SunTimes.css";
 
 export const SunTimes = ({ sunrise, sunset }) => {
   return (
-    <div className="location">
+    <div>
       <span>
         {`Sun will rise at ${sunrise}`}
       </span>

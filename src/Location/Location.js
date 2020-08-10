@@ -3,10 +3,12 @@ import "./Location.css";
 
 export const Location = ({ userLocation }) => {
   return (
-    <span className="location">
+    <span>
       Your location: {userLocation}
     </span>
   );
 };
+
+// className="location"
 
 export default Location;
