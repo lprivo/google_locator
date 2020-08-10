@@ -1,10 +1,10 @@
 import React from "react";
 import "./Location.css";
 
-export const Location = ({ eventHandler }) => {
+export const Location = ({ userLocation }) => {
   return (
     <span className="location">
-      Your location:
+      Your location: {userLocation}
     </span>
   );
 };
