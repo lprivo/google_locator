@@ -5,7 +5,7 @@ import LocalDate from "../Localdate";
 import SunTimes from "../SunTimes";
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import Map from "../Map";
-// import "../map_test.json";   // importing map API key #1
+import "../map_test.json";   // importing map API key #1
 
 export const Main = () => {
   // const [userPosition, setUserPosition] = useState({});
@@ -20,29 +20,29 @@ export const Main = () => {
   console.log('mapKey: ', mapKey);
 
   // importing map API key #1
-  // const getMapKey = useCallback(() => {
-  // const mapkey = JSON.parse("map_test");
-  // const mapkey = map_test.APIkey;
-  // const mapkey = require("D:/Coding/user_locator_React/src/map_test");
-  // const mapkey = JSON.parse(`{
-  //     "APIkey": "test_key"
-  // }`);
-  //   console.log('mapkey: ', mapkey);
-  //   setMapKey(mapkey.APIkey);
-  // }, [])
+  const getMapKey = useCallback(() => {
+    // const mapkey = JSON.parse("map_test");   // why is this not working??
+    // const mapkey = map_test.APIkey;
+    // const mapkey = require("D:/Coding/user_locator_React/src/map_test");
+    // const mapkey = JSON.parse(`{             // this works only!
+    //     "APIkey": "test_key"
+    // }`);
+    console.log('mapkey: ', mapkey);
+    setMapKey(mapkey.APIkey);
+  }, [])
 
   // importing map API key #2
-  const getMapKey = useCallback((file, callback) => {
-    let mapkey = new XMLHttpRequest();
-    mapkey.overrideMimeType("application/json");
-    mapkey.open("GET", file, true);
-    mapkey.onreadystatechange = () => {
-      if (mapkey.readyState === 4 && mapkey.status === "200") {
-        callback(mapkey.responseText);
-      }
-    }
-    mapkey.send(null);
-  }, []);
+  // const getMapKey = useCallback((file, callback) => {
+  //   let mapkey = new XMLHttpRequest();
+  //   mapkey.overrideMimeType("application/json");
+  //   mapkey.open("GET", file, true);
+  //   mapkey.onreadystatechange = () => {
+  //     if (mapkey.readyState === 4 && mapkey.status === "200") {
+  //       callback(mapkey.responseText);
+  //     }
+  //   }
+  //   mapkey.send(null);
+  // }, []);
 
   // importing map API key #3
   // var xmlhttp = new XMLHttpRequest();
@@ -141,11 +141,11 @@ export const Main = () => {
     getUserPosition();
     getDateTime();
     getSunTimes();
-    // getMapKey(); // importing map API key #1
-    getMapKey("d:/Coding/user_locator_React/src/map_test.json", (text) => {   // importing map API key #2
-      const mapkey = JSON.parse(text);
-      setMapKey(mapkey);
-    });
+    getMapKey(); // importing map API key #1
+    // getMapKey("d:/Coding/user_locator_React/src/map_test.json", (text) => {   // importing map API key #2
+    //   const mapkey = JSON.parse(text);
+    //   setMapKey(mapkey);
+    // });
   }, [getUserPosition, getDateTime, getSunTimes, getMapKey]);
 
   // useEffect(() => {
