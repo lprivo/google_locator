@@ -1,9 +1,9 @@
 import React from "react";
 import "./SunTimes.css";
 
-export const SunTimes = ({ sunrise, sunset }) => {
+export const SunTimes = ({ className, sunrise, sunset }) => {
   return (
-    <div>
+    <div className={className}>
       <span>
         {`Time of sunrise: ${sunrise}`}
       </span>
