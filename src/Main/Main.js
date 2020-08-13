@@ -5,7 +5,7 @@ import LocalDate from "../Localdate";
 import SunTimes from "../SunTimes";
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import Map from "../Map";
-import "../map_test.json";   // importing map API key #1
+import * as mapkey from "../Map/map.json";   // importing map API key #1
 
 export const Main = () => {
   // const [userPosition, setUserPosition] = useState({});
@@ -22,7 +22,7 @@ export const Main = () => {
   // importing map API key #1
   const getMapKey = useCallback(() => {
     // const mapkey = JSON.parse("map_test");   // why is this not working??
-    // const mapkey = map_test.APIkey;
+    // const mapkey = JSON.APIkey;
     // const mapkey = require("D:/Coding/user_locator_React/src/map_test");
     // const mapkey = JSON.parse(`{             // this works only!
     //     "APIkey": "test_key"
@@ -76,8 +76,11 @@ export const Main = () => {
   }, [])
 
   const getSunTimes = useCallback(() => {
-    setSunrise(getSunrise(userLatitude, userLongitude));
-    setSunset(getSunset(userLatitude, userLongitude));
+    let sunRise = String(getSunrise(userLatitude, userLongitude)).split(" ");
+    let sunSet = String(getSunset(userLatitude, userLongitude)).split(" ");
+
+    setSunrise(sunRise[4]);
+    setSunset(sunSet[4]);
   }, [userLatitude, userLongitude])
 
   // logging out city name #1
@@ -154,9 +157,11 @@ export const Main = () => {
 
   return (
     <div className="main">
-      <Location userLocation={`${userLatitude}, ${userLongitude}`} ></Location>
-      <LocalDate localDate={localDate} localTime={localTime} ></LocalDate>
-      <SunTimes sunrise={sunrise} sunset={sunset} ></SunTimes>
+      <div className="infopanel">
+        <Location className={"infoitem"} userLocation={`${userLatitude}, ${userLongitude}`} ></Location>
+        <LocalDate className={"infoitem"} localDate={localDate} localTime={localTime} ></LocalDate>
+        <SunTimes className={"infoitem"} sunrise={sunrise} sunset={sunset} ></SunTimes>
+      </div>
       <Map API={mapKey}></Map>
     </div>
   );

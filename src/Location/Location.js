@@ -1,9 +1,9 @@
 import React from "react";
 import "./Location.css";
 
-export const Location = ({ userLocation }) => {
+export const Location = ({ className, userLocation }) => {
   return (
-    <span>
+    <span className={className}>
       Your location: {userLocation}
     </span>
   );

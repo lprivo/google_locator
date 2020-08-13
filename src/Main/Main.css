@@ -1,16 +1,29 @@
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 30px;
+* {
+  margin: 0px;
+  padding: 0px;
 }
 
 .main {
   display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid #999;
-  font-size: 16px;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  background: rgb(230, 240, 250);
+  /* border: 1px solid #999; */
+  font: 14px "Century Gothic", Futura, sans-serif;
+  font-size: 14px;
   font-weight: bold;
   margin: 0px;
   padding: 5px;
   text-align: center;
+}
+
+.infopanel {
+  height: 100px;
+  display: grid;
+  text-align: left;
+  align-items: center;
+}
+
+.infoitem {
+  flex-basis: 30%;
 }
