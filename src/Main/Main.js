@@ -5,7 +5,7 @@ import LocalDate from "../Localdate";
 import SunTimes from "../SunTimes";
 import { getSunrise, getSunset } from 'sunrise-sunset-js';
 import Map from "../Map";
-import * as mapkey from "../Map/map.json";   // importing map API key #1
+import * as mapkey from "../Map/map.json";   // importing map API key
 
 export const Main = () => {
   // const [userPosition, setUserPosition] = useState({});
@@ -17,43 +17,11 @@ export const Main = () => {
   const [sunrise, setSunrise] = useState("-calculating-");
   const [sunset, setSunset] = useState("-calculating-");
   const [mapKey, setMapKey] = useState();
-  console.log('mapKey: ', mapKey);
 
-  // importing map API key #1
+  // importing map API key
   const getMapKey = useCallback(() => {
-    // const mapkey = JSON.parse("map_test");   // why is this not working??
-    // const mapkey = JSON.APIkey;
-    // const mapkey = require("D:/Coding/user_locator_React/src/map_test");
-    // const mapkey = JSON.parse(`{             // this works only!
-    //     "APIkey": "test_key"
-    // }`);
-    console.log('mapkey: ', mapkey);
     setMapKey(mapkey.APIkey);
   }, [])
-
-  // importing map API key #2
-  // const getMapKey = useCallback((file, callback) => {
-  //   let mapkey = new XMLHttpRequest();
-  //   mapkey.overrideMimeType("application/json");
-  //   mapkey.open("GET", file, true);
-  //   mapkey.onreadystatechange = () => {
-  //     if (mapkey.readyState === 4 && mapkey.status === "200") {
-  //       callback(mapkey.responseText);
-  //     }
-  //   }
-  //   mapkey.send(null);
-  // }, []);
-
-  // importing map API key #3
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     var myObj = JSON.parse(this.responseText);
-  //     document.getElementById("demo").innerHTML = myObj.name;
-  //   }
-  // };
-  // xmlhttp.open("GET", "json_demo.txt", true);
-  // xmlhttp.send();
 
   const getUserPosition = useCallback(() => {
     if ("geolocation" in navigator) {
@@ -62,7 +30,6 @@ export const Main = () => {
         // setUserPosition(position);
         setUserLatitude(position.coords.latitude);
         setUserLongitude(position.coords.longitude);
-        console.log(position);
       });
     } else {
       console.log("Not Available");
@@ -83,77 +50,12 @@ export const Main = () => {
     setSunset(sunSet[4]);
   }, [userLatitude, userLongitude])
 
-  // logging out city name #1
-  // const getAddress = useCallback((latitude, longitude) => {
-  //   return new Promise(function (resolve, reject) {
-  //     const request = new XMLHttpRequest();
-  //     const method = 'GET';
-  //     const url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
-  //     let async = true;
-
-  //     request.open(method, url, async);
-  //     request.onreadystatechange = () => {
-  //       if (request.readyState == 4) {
-  //         if (request.status == 200) {
-  //           const data = JSON.parse(request.responseText);
-  //           const address = data.results[0];
-  //           resolve(address);
-  //         }
-  //         else {
-  //           reject(request.status);
-  //         }
-  //       }
-  //     };
-  //     request.send();
-  //   });
-  // }, []);
-
-  // logging out city name #2
-  // const getCity = useCallback((latitude, longitude) => {
-  //   const xhr = new XMLHttpRequest();
-  //   let lat = latitude;
-  //   let lng = longitude;
-
-  //   // Paste your LocationIQ token below. 
-  //   xhr.open('GET', "https://us1.locationiq.com/v1/reverse.php?key=YOUR_PRIVATE_TOKEN&lat=" + lat + "&lon=" + lng + "&format=json", true);
-  //   xhr.send();
-  //   xhr.onreadystatechange = processRequest;
-  //   xhr.addEventListener("readystatechange", processRequest, false);
-
-  //   function processRequest(e) {
-  //     if (xhr.readyState == 4 && xhr.status == 200) {
-  //       let response = JSON.parse(xhr.responseText);
-  //       let city = response.address.city;
-  //       console.log(city);
-  //       return;
-  //     }
-  //   }
-  // }, []);
-
-  // const getUserLocation = useCallback(() => {
-  //   setUserLocation(getAddress(userPosition.latitude, userPosition.longitude))
-  //   console.log('userLocation: ', getAddress(userPosition.latitude, userPosition.longitude));
-  //   console.log('userLocation: ', getAddress(userPosition.latitude, userPosition.longitude).then(console.log).catch(console.error));
-  //   console.log('userLocation: ', getAddress(51.319466999999996, -2.1782705));
-  //   console.log('userLocation: ', getCity(51.319466999999996, -2.1782705));
-  // }, []);
-
-  // getAddress(userPosition.latitude, userPosition.longitude).then(console.log).catch(console.error);
-
   useEffect(() => {
     getUserPosition();
     getDateTime();
     getSunTimes();
-    getMapKey(); // importing map API key #1
-    // getMapKey("d:/Coding/user_locator_React/src/map_test.json", (text) => {   // importing map API key #2
-    //   const mapkey = JSON.parse(text);
-    //   setMapKey(mapkey);
-    // });
+    getMapKey();
   }, [getUserPosition, getDateTime, getSunTimes, getMapKey]);
-
-  // useEffect(() => {
-  //   getUserLocation();
-  // }, [getUserLocation]);
 
   return (
     <div className="main">
