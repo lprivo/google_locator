@@ -1,9 +1,7 @@
 .mapframe {
-  background: #fff;
-  /* border: 1px solid #999; */
-  width: 400px;
+  display: flex;
+  justify-content: center;
   height: 400px;
-  margin: 5px;
-  padding: 5px;
+  width: 600px;
+  border: 1px solid #999;
 }
-
