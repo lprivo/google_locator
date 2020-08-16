@@ -8,10 +8,10 @@ import Map from "../Map";
 import * as mapkey from "../Map/map.json";   // importing map API key
 
 export const Main = () => {
-  // const [userPosition, setUserPosition] = useState({});
   const [userLatitude, setUserLatitude] = useState(0);
   const [userLongitude, setUserLongitude] = useState(0);
-  // const [userLocation, setUserLocation] = useState("UNKNOWN")
+  const [userLocation, setUserLocation] = useState("UNKNOWN")
+  console.log('userLocation: ', userLocation);
   const [localDate, setLocalDate] = useState([0, 0, 0]);
   const [localTime, setLocalTime] = useState([0, 0, 0]);
   const [sunrise, setSunrise] = useState("-calculating-");
@@ -27,7 +27,6 @@ export const Main = () => {
     if ("geolocation" in navigator) {
       console.log("Available");
       navigator.geolocation.getCurrentPosition(function (position) {
-        // setUserPosition(position);
         setUserLatitude(position.coords.latitude);
         setUserLongitude(position.coords.longitude);
       });
@@ -50,12 +49,67 @@ export const Main = () => {
     setSunset(sunSet[4]);
   }, [userLatitude, userLongitude])
 
+  // logging out city name #1
+  // const getAddress = useCallback((latitude, longitude) => {
+  //   return new Promise(function (resolve, reject) {
+  //     const request = new XMLHttpRequest();
+  //     const method = 'GET';
+  //     const url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
+  //     let async = true;
+
+  //     request.open(method, url, async);
+  //     request.onreadystatechange = () => {
+  //       if (request.readyState === 4) {
+  //         if (request.status === 200) {
+  //           const data = JSON.parse(request.responseText);
+  //           const address = data.results[0];
+  //           resolve(address);
+  //         }
+  //         else {
+  //           reject(request.status);
+  //         }
+  //       }
+  //     };
+  //     request.send();
+  //   });
+  // }, []);
+
+  // logging out city name #2
+  const getAddress = useCallback((latitude, longitude) => {
+    const xhr = new XMLHttpRequest();
+    let lat = latitude;
+    let lng = longitude;
+
+    // Paste your LocationIQ token below. 
+    xhr.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${mapKey}&lat=${lat}&lon=${lng}&format=json`, true);
+    xhr.send();
+    xhr.onreadystatechange = processRequest;
+    xhr.addEventListener("readystatechange", processRequest, false);
+
+    function processRequest(e) {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        let response = JSON.parse(xhr.responseText);
+        let city = response.address.city;
+        console.log(city);
+        return;
+      }
+    }
+  }, [mapKey]);
+
+  const getUserLocation = useCallback(() => {
+    setUserLocation(getAddress(userLatitude, userLongitude))
+  }, [getAddress, userLatitude, userLongitude]);
+
   useEffect(() => {
     getUserPosition();
     getDateTime();
     getSunTimes();
     getMapKey();
   }, [getUserPosition, getDateTime, getSunTimes, getMapKey]);
+
+  useEffect(() => {
+    getUserLocation();
+  }, [getUserLocation]);
 
   return (
     <div className="main">
