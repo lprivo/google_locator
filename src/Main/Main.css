@@ -1,13 +1,8 @@
-* {
-  margin: 0px;
-  padding: 0px;
-}
 
 .main {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  background: rgb(230, 240, 250);
   font: 14px "Century Gothic", Futura, sans-serif;
   font-size: 14px;
   font-weight: bold;

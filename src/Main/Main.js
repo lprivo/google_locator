@@ -118,7 +118,7 @@ export const Main = () => {
         <LocalDate className={"infoitem"} localDate={localDate} localTime={localTime} ></LocalDate>
         <SunTimes className={"infoitem"} sunrise={sunrise} sunset={sunset} ></SunTimes>
       </div>
-      <Map API={mapKey}></Map>
+      <Map API={mapKey} userLatitude={userLatitude} userLongitude={userLongitude}></Map>
     </div>
   );
 };
